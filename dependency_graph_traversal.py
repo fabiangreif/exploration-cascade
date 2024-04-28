@@ -10,9 +10,9 @@ def traverse_dependency_graph(all_activities, all_evas, dependency_graph, p, d):
 
     level_dictionary = dependency_graph.get_node_dictionary(-1)
     depth_first_search(dependency_graph, level_dictionary, 0, dependency_graph.get_start_node())
-    layer_graph = create_layer_graph(level_dictionary, dependency_graph)
+    level_graph = create_level_graph(level_dictionary, dependency_graph)
 
-    sorted_nodes = sorted(layer_graph.nodes, key=lambda n: n.id)
+    sorted_nodes = sorted(level_graph.nodes, key=lambda n: n.id)
 
     for node in sorted_nodes[1:-1]:
         node_activities = node.value
@@ -31,7 +31,7 @@ def depth_first_search(graph, level_dictionary, depth, node):
             depth_first_search(graph, level_dictionary, depth + 1, child)
 
 
-def create_layer_graph(level_dictionary, dependency_graph):
+def create_level_graph(level_dictionary, dependency_graph):
     levels = []
     values = dict(level_dictionary).values()
     for value in values:
